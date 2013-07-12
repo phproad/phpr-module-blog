@@ -1,0 +1,27 @@
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/blog/assets/scripts/js/edit.js"></script>
+<? Phpr_View::end_block() ?>
+
+<? Phpr_View::begin_block("view") ?>
+	<?=flash()?>
+
+	<? if (!isset($fatal_error)): ?>
+		<div class="form-fluid">
+			<?=form_open(array('id'=>'form-element'))?>
+				<input type="hidden" value="1" id="new_record_flag" />
+				
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_ajax_button('Create', 'create_on_save', array('class'=>'btn-success'), "beforeSend: function(){phprTriggerSave();}, customIndicator: LightLoadingIndicator") ?>
+						<?=admin_ajax_button('Create and Close', 'create_on_save', array('class'=>'btn-primary'), "data: {create_close: 1}, beforeSend: function(){phprTriggerSave();}") ?>
+						<?=admin_ajax_button('Cancel', 'create_on_cancel', array('class'=>'pull-right')) ?>
+					</div>
+				</div>
+			
+				<? $this->form_render() ?>
+			<?=form_close()?>
+		</div>
+	<? else: ?>
+		<p><a href="<?=url('blog/posts') ?>">Return to the post list</a></p>
+	<? endif ?>
+<? Phpr_View::end_block() ?>

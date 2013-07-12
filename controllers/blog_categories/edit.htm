@@ -1,0 +1,25 @@
+<? Admin_Breadcrumb::add('Categories', 'blog/categories')->add($this->app_page_title); ?>
+<? Phpr_View::begin_block("view") ?>
+	
+	<?=flash()?>
+
+	<? if (!isset($fatal_error)): ?>
+		<div class="form-400">
+			<?=form_open(array('id'=>'form-element'))?>
+
+				<? $this->form_render() ?>
+
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_ajax_button('Save', 'edit_on_save', array('class'=>'btn-success')) ?>
+						<?=admin_ajax_button('Cancel', 'edit_on_cancel') ?>
+						<?=admin_ajax_button('Delete', 'edit_on_delete', array('class'=>"btn-danger pull-right"), "confirm: 'Do you really want to delete this category?'") ?>
+					</div>
+				</div>	
+
+			<?=form_close()?>
+		</div>
+	<? else: ?>
+		<p><a href="<?=url('blog/categories') ?>">Return to the category list</a></p>
+	<? endif ?>
+<? Phpr_View::end_block() ?>

@@ -1,0 +1,18 @@
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/blog/assets/scripts/js/post_list.js"></script>
+<? Phpr_View::end_block() ?>
+<? Phpr_View::begin_block("view") ?>
+	
+	<?=flash()?>
+	
+	<? 
+		$list_options = array();
+		if ($can_manage_posts) {
+			$list_options['list_control_panel'] = 'control_panel';
+		}
+
+		$list_options['list_render_filters'] = true;
+	?>
+	
+	<?=$this->list_render($list_options) ?>
+<? Phpr_View::end_block() ?>

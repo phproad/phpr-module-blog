@@ -1,0 +1,22 @@
+<? Admin_Breadcrumb::add('Blog Posts', 'blog/posts')->add('Post', 'blog/posts/preview/'.$form_model->post_id)->add($this->app_page_title); ?>
+<? Phpr_View::begin_block("view") ?>
+	<? if (!isset($fatal_error)): ?>
+		<div class="form-600">
+			<?=form_open(array('id'=>'form-element'))?>
+				<? $this->form_render() ?>
+
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_ajax_button('Save', 'edit_on_save', array('class'=>'btn-success')) ?>
+						<?=admin_ajax_button('Cancel', 'edit_on_cancel') ?>
+					</div>
+				</div>
+
+			<?=form_close()?>
+		</div>
+	<? else: ?>
+		<?=flash()?>
+		
+		<p><a href="<?=url('blog/posts') ?>">Return to the post list</a></p>
+	<? endif ?>
+<? Phpr_View::end_block() ?>

@@ -1,0 +1,36 @@
+<? Admin_Breadcrumb::add('Blog Posts', 'blog/posts')->add($this->app_page_title); ?>
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/blog/assets/scripts/js/preview.js"></script>
+<? Phpr_View::end_block() ?>
+
+<? Phpr_View::begin_block("view") ?>
+	
+	<? if (!isset($fatal_error)): ?>
+	
+		<div class="form-fluid">
+
+			<?=form_open(array('id'=>'form-element'))?>
+				<? $this->form_render_preview() ?>
+
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_button('Return to the post list', url('blog/posts')) ?>
+						
+						<? if ($can_manage_posts): ?>
+							<?=admin_button('Edit post', array('href'=>url('blog/posts/edit/'.$form_model->id), 'class'=>'btn btn-success')) ?>
+						<? endif ?>
+					</div>
+				</div>
+			<?=form_close()?>
+			
+			<!-- Comment list -->
+			<h3 id="comments">Post Comments</h3>
+			<div id="comment_list"><? $this->display_partial('comment_list') ?></div>
+
+		</div>
+	<? else: ?>
+		<?=flash()?>
+		
+		<p><a href="<?=url('blog/posts') ?>">Return to the post list</a></p>
+	<? endif ?>
+<? Phpr_View::end_block() ?>

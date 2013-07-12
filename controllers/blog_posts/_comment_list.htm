@@ -1,0 +1,39 @@
+<? if ($can_manage_comments): ?>
+	<div class="pull-right">
+		<?=Phpr_Form::open_tag() ?>
+			<?=admin_button('Add comment', array('href'=>url('blog/comments/create/'.$form_model->id), 'class'=>'btn-success')) ?>
+		</form>
+	</div>
+<? endif ?>
+
+<div class="alert alert-block">
+	<? if ($form_model->new_comment_num): ?>
+		<p>There are <strong><?=$form_model->new_comment_num ?> new comment(s)</strong> - Total comments: <?=$form_model->comment_num ?></p>
+	<? else: ?>
+		<p>There are <strong>no new comments</strong> - Total comments: <?=$form_model->comment_num ?></p>
+	<? endif ?>
+</div>
+
+<?=Phpr_Form::open_tag(array('id'=>$this->list_get_form_id())) ?>
+	<input type="hidden" name="comment_list_mode" value="1" />
+	
+	<?
+		$list_columns = array('created_at', 'status', 'author_name', 'author_email', 'content');
+	?>
+	
+	<?=$this->list_render(array(
+		'list_model_class' => 'Blog_Comment',
+		'list_columns' => $list_columns,		
+		'list_custom_prepare_func' => 'prepare_comment_list',
+		'list_record_url' => null,
+		'list_no_data_message' => 'This post is not commented',
+		'list_no_setup_link' => true,
+		'list_no_form' => true,
+		'list_items_per_page' => 10000,
+		'list_record_url' => url('blog/comments/preview/'),
+		'list_custom_body_cells' => false,
+		'list_custom_head_cells' => false,
+		'list_no_pagination' => true,
+		'list_search_enabled' => false
+	)) ?>
+</form>
