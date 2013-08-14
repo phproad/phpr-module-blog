@@ -18,9 +18,9 @@ jQuery(document).ready(function($) {
 	
 	var title_field = $('#Blog_Post_title');
 	if (title_field && $('#new_record_flag').length) {
-		title_field.on('keyup', $.proxy(update_url_title, title_field));
-		title_field.on('change', $.proxy(update_url_title, title_field));
-		title_field.on('paste', $.proxy(update_url_title, title_field));
+		title_field.on('keyup', update_url_title);
+		title_field.on('change', update_url_title);
+		title_field.on('paste', update_url_title);
 	}
 	
 	if ($('#new_record_flag').length) {
@@ -30,8 +30,9 @@ jQuery(document).ready(function($) {
 	
 });
 
-function update_url_title(field_element) {
+function update_url_title() {
+	fieldElementValue = jQuery(this).val();
 	if (!url_modified)
-		jQuery('@Blog_Post_url_title').val(convert_text_to_url(field_element.value));
+		jQuery('#Blog_Post_url_title').val(convert_text_to_url(fieldElementValue));
 }
 

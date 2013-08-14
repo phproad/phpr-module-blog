@@ -40,7 +40,7 @@ class Blog_Post extends Db_ActiveRecord
 		$this->define_column('keywords', 'Keywords')->validation()->fn('trim');
 		$this->define_column('is_published', 'Published');
 		$this->define_column('comments_allowed', 'Allow Comments')->default_invisible();
-		$this->define_column('published_at', 'Date Published');
+		$this->define_column('published_at', 'Date Published')->validation()->required();
 		$this->define_column('comment_num', 'Total Comments')->default_invisible();
 		$this->define_column('new_comment_num', 'New Comments')->default_invisible();
 		$this->define_column('email_subscribers', 'Email Subscribers')->default_invisible();
