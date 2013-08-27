@@ -87,7 +87,7 @@ class Blog_Posts extends Admin_Controller
 			$this->list_custom_body_cells = false;
 			$this->list_custom_head_cells = false;
 			$this->list_no_pagination = true;
-			$this->list_cell_partial = PATH_APP.'/modules/blog/controllers/blog_posts/_comment_row_controls.htm';
+			//$this->list_cell_partial = PATH_APP.'/modules/blog/controllers/blog_posts/_comment_row_controls.htm';
 		}
 	}
 
