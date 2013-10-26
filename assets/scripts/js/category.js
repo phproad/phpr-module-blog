@@ -1,23 +1,31 @@
-var url_modified = false;
+;(function (window, $) {
+    'use strict';
 
-function update_url_title(field_element)
-{
-	if (!url_modified)
-		$('Blog_Category_url_name').value =  convert_text_to_url(field_element.value);
-}
+    var
+        url_modified = false,
+        $cat_title, $cat_url;
 
-window.addEvent('domready', function(){
-	var title_field = $('Blog_Category_name');
-	if (title_field && $('new_record_flag'))
-	{
-		title_field.addEvent('keyup', update_url_title.pass(title_field));
-		title_field.addEvent('change', update_url_title.pass(title_field));
-		title_field.addEvent('paste', update_url_title.pass(title_field));
-	}
-	
-	if ($('new_record_flag'))
-	{
-		var url_element = $('Blog_Category_url_name');
-		url_element.addEvent('change', function(){url_modified=true;});
-	}
-});
+    function update_url_title() {
+        var
+            field_element_value = $(this).val();
+
+        if (!url_modified) {
+            $cat_url.val(window.convert_text_to_url(field_element_value));
+        }
+    }
+
+    $(function () {
+        var
+            is_new_record = ($('#new_record_flag').length) ? true : false;
+
+        $cat_title = $('#Blog_Category_name');
+        $cat_url = $('#Blog_Category_url_name');
+
+        if (is_new_record) {
+            $cat_title.on('keyup change paste', update_url_title);
+            $cat_url.on('change', function () { url_modified = true; });
+        }
+
+    });
+
+}(this, this.jQuery));

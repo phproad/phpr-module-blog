@@ -12,7 +12,6 @@
                 beforeSend: function () { window.phprTriggerSave(); },
                 data: { redirect : 0 },
                 customIndicator: window.LightLoadingIndicator,
-                error: window.popupAjaxError,
                 update: 'multi'
             })
             .send();
@@ -41,7 +40,7 @@
             $post_url.on('change', function () { url_modified = true; });
         }
 
-        $('html').bindkey('meta+s, ctrl+s', save_code);
+        $('html').bindkey('ctrl+s', save_code);
     });
 
 }(this, this.jQuery));
