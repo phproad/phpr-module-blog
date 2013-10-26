@@ -1,38 +1,46 @@
-var url_modified = false;
+;(function (window, $) {
+    'use strict';
 
-function save_code() {
-	$('#form_element').phpr().post('on_save', {
-		beforeSend: function(){phprTriggerSave();}, 
-		data: { redirect: 0 }, 
-		customIndicator: LightLoadingIndicator, 
-		error: popupAjaxError,
-		update: 'multi'
-	}).send();
+    var
+        url_modified = false,
+        $post_title, $post_url;
 
-	return false;
-}
+    function save_code() {
+        $('#form_element')
+            .phpr()
+            .post('on_save', {
+                beforeSend: function () { window.phprTriggerSave(); },
+                data: { redirect : 0 },
+                customIndicator: window.LightLoadingIndicator,
+                update: 'multi'
+            })
+            .send();
 
-jQuery(document).ready(function($) { 
-		
-	$('html').bindkey('meta+s, ctrl+s', save_code);
-	
-	var title_field = $('#Blog_Post_title');
-	if (title_field && $('#new_record_flag').length) {
-		title_field.on('keyup', update_url_title);
-		title_field.on('change', update_url_title);
-		title_field.on('paste', update_url_title);
-	}
-	
-	if ($('#new_record_flag').length) {
-		var url_element = $('#Blog_Post_url_title');
-		url_element.on('change', function(){ url_modified=true; });
-	}
-	
-});
+        return false;
+    }
 
-function update_url_title() {
-	fieldElementValue = jQuery(this).val();
-	if (!url_modified)
-		jQuery('#Blog_Post_url_title').val(convert_text_to_url(fieldElementValue));
-}
+    function update_url_title() {
+        var
+            field_element_value = $(this).val();
 
+        if (!url_modified) {
+            $post_url.val(window.convert_text_to_url(field_element_value));
+        }
+    }
+
+    $(function () {
+        var
+            is_new_record = ($('#new_record_flag').length) ? true : false;
+
+        $post_title = $('#Blog_Post_title');
+        $post_url = $('#Blog_Post_url_title');
+
+        if (is_new_record) {
+            $post_title.on('keyup change paste', update_url_title);
+            $post_url.on('change', function () { url_modified = true; });
+        }
+
+        $('html').bindkey('ctrl+s', save_code);
+    });
+
+}(this, this.jQuery));
